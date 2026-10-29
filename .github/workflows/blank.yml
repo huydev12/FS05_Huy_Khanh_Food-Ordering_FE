@@ -26,4 +26,5 @@ jobs:
             pwd
             git pull origin main
             sudo docker build -t food_ordering_fe:latest .
+            sudo docker run -dp 8--name food_ordering_fe food_ordering_fe:latest
           EOF
