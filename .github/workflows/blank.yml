@@ -19,7 +19,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@secrets.EC2_HOST << EOF
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@15.135.72.168 << EOF
             ls
             pwd
             cd fe
