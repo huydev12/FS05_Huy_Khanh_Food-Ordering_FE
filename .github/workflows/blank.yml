@@ -25,5 +25,5 @@ jobs:
             cd fe
             pwd
             git pull origin main
-            sudo docker build -t food_ordering_fe:latest
+            sudo docker build -t food_ordering_fe:latest .
           EOF
