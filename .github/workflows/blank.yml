@@ -28,5 +28,5 @@ jobs:
             sudo docker stop food_ordering_fe || true
             sudo docker rm food_ordering_fe || true
             sudo docker build -t food_ordering_fe:latest .
-            sudo docker run -dp 80:80 --name food_ordering_fe food_ordering_fe:latest
+            sudo docker run -dp 5173:80 --name food_ordering_fe food_ordering_fe:latest
           EOF
