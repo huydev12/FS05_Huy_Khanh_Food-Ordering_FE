@@ -223,7 +223,7 @@ export default function Home() {
   };
 
   const apiCategories = useMemo(() => {
-    const names = restaurants.flatMap((r) => r.categories?.map((c) => c.name) || []);
+    const names = (restaurants ?? []).flatMap((r) => r.categories?.map((c) => c.name) || []);
     return Array.from(new Set(names));
   }, [restaurants]);
 
