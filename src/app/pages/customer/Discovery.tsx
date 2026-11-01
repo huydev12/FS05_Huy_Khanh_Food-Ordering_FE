@@ -306,7 +306,7 @@ export default function Discovery() {
 
   // ── Filtering (keyword-based for slugs, name-based for legacy) ───────────
   const filtered = useMemo(() => {
-    let baseResult = restaurants;
+    let baseResult = restaurants ?? [];
 
     // Text search
     if (search.trim()) {
@@ -387,7 +387,7 @@ export default function Discovery() {
       | { type: 'dish'; item: NonNullable<Restaurant['menuItems']>[number]; restaurant: Restaurant }
     > = [];
 
-    for (const r of restaurants) {
+    for (const r of restaurants || []) {
       if (
         r.name.toLowerCase().includes(keyword) ||
         r.categories?.some((c) => c.name.toLowerCase().includes(keyword))
@@ -410,7 +410,7 @@ export default function Discovery() {
   // ── Recent orders ───────────────────────────────────────────────────────
   const recommendedItemImages = useMemo(() => {
     const images: string[] = [];
-    const sourceList = aiRecommendations.length > 0 ? aiRecommendations : restaurants;
+    const sourceList = aiRecommendations.length > 0 ? aiRecommendations : (restaurants || []);
     for (const r of sourceList || []) {
       if (r.imageUrl) images.push(r.imageUrl);
       if (r.menuItems) {

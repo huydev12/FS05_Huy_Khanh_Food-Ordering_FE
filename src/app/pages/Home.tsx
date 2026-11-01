@@ -228,7 +228,7 @@ export default function Home() {
   }, [restaurants]);
 
   const visibleRestaurants = useMemo(() => {
-    let filtered = restaurants;
+    let filtered = restaurants ?? [];
     if (activeCategory !== "All" && activeCategory !== t("common.all")) {
       filtered = filtered.filter((r) => r.categories?.some((c) => c.name === activeCategory));
     }
@@ -242,7 +242,7 @@ export default function Home() {
   }, [activeCategory, restaurants, t, selectedAddress, distanceFilter]);
 
   const mappedMarkers = useMemo<RestaurantMarkerData[]>(() => {
-    return visibleRestaurants.map((r) => ({
+    return (visibleRestaurants ?? []).map((r) => ({
       id: r.id,
       name: r.name,
       address: r.address || null,
@@ -315,7 +315,7 @@ export default function Home() {
             {/* Trust badges */}
             <div className="flex gap-6 mt-10">
               {[
-                [restaurants.length > 0 ? `${restaurants.length}+` : t("home.restaurants_count"), t("home.restaurants_label")],
+                [(restaurants?.length ?? 0) > 0 ? `${restaurants.length}+` : t("home.restaurants_count"), t("home.restaurants_label")],
                 [t("home.orders_count"), t("home.orders_label")],
                 [t("home.rating_value"), t("home.rating_label")],
               ].map(([val, label]) => (

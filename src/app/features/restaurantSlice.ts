@@ -173,7 +173,7 @@ const restaurantSlice = createSlice({
         // fetchRestaurants
         builder
             .addCase(fetchRestaurants.pending, (s) => { s.loading = true; s.error = null; })
-            .addCase(fetchRestaurants.fulfilled, (s, a) => { s.loading = false; s.restaurants = a.payload; })
+            .addCase(fetchRestaurants.fulfilled, (s, a) => { s.loading = false; s.restaurants = Array.isArray(a.payload) ? a.payload : []; })
             .addCase(fetchRestaurants.rejected, (s, a) => { s.loading = false; s.error = a.payload as string; });
 
         // fetchMyRestaurant
@@ -185,7 +185,7 @@ const restaurantSlice = createSlice({
         // fetchMenuItems
         builder
             .addCase(fetchMenuItems.pending, (s) => { s.menuLoading = true; s.menuError = null; })
-            .addCase(fetchMenuItems.fulfilled, (s, a) => { s.menuLoading = false; s.menuItems = a.payload; })
+            .addCase(fetchMenuItems.fulfilled, (s, a) => { s.menuLoading = false; s.menuItems = Array.isArray(a.payload) ? a.payload : []; })
             .addCase(fetchMenuItems.rejected, (s, a) => { s.menuLoading = false; s.menuError = a.payload as string; });
 
         // addMenuItem
@@ -217,7 +217,7 @@ const restaurantSlice = createSlice({
         // fetchPromotions
         builder
             .addCase(fetchPromotions.pending, (s) => { s.promoLoading = true; s.promoError = null; })
-            .addCase(fetchPromotions.fulfilled, (s, a) => { s.promoLoading = false; s.promotions = a.payload; })
+            .addCase(fetchPromotions.fulfilled, (s, a) => { s.promoLoading = false; s.promotions = Array.isArray(a.payload) ? a.payload : []; })
             .addCase(fetchPromotions.rejected, (s, a) => { s.promoLoading = false; s.promoError = a.payload as string; });
 
         // addPromotion

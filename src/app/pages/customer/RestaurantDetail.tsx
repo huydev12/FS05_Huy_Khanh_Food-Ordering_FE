@@ -74,7 +74,7 @@ export default function RestaurantDetail() {
   };
 
   const restaurantIndex = useMemo(
-    () => restaurants.findIndex((item) => item.id === id),
+    () => (restaurants ?? []).findIndex((item) => item.id === id),
     [id, restaurants]
   );
   const restaurant = restaurantIndex >= 0 ? restaurants[restaurantIndex] : undefined;

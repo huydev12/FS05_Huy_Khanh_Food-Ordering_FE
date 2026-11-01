@@ -62,7 +62,7 @@ export function RestaurantRow({
 }: RestaurantRowProps) {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const items = restaurants.slice(0, limit);
+  const items = (restaurants || []).slice(0, limit);
 
   if (!loading && items.length === 0) return null;
 

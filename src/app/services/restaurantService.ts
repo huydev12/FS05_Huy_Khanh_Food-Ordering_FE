@@ -7,7 +7,10 @@ export const restaurantService = {
   /** Lấy danh sách nhà hàng (public) */
   listRestaurants: async () => {
     const response = await apiClient.get("/v1/restaurant/list");
-    return Array.isArray(response.data) ? response.data : response.data.data;
+    if (Array.isArray(response.data)) return response.data;
+    if (Array.isArray(response.data?.data)) return response.data.data;
+    if (Array.isArray(response.data?.restaurants)) return response.data.restaurants;
+    return [];
   },
 
   /** Lấy nhà hàng của owner đang đăng nhập */

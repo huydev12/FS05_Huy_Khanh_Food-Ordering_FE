@@ -33,7 +33,7 @@ export default function RestaurantMarkers({
 }: RestaurantMarkersProps) {
   return (
     <>
-      {restaurants.map((r) => {
+      {(restaurants || []).map((r) => {
         const lat = r.latitude ? parseFloat(r.latitude) : null;
         const lng = r.longitude ? parseFloat(r.longitude) : null;
 
