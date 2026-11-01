@@ -352,7 +352,7 @@ export default function Discovery() {
     }
 
     // Attach distance
-    const withDistance = baseResult.map((r) => {
+    const withDistance = (baseResult || []).map((r) => {
       let dist = Infinity;
       if (selectedAddress && r.latitude && r.longitude) {
         dist = calculateDistance(selectedAddress.lat, selectedAddress.lng, Number(r.latitude), Number(r.longitude));
