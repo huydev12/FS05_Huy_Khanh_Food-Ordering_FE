@@ -4,29 +4,29 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
   workflow_dispatch:
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy
+      - name: Deploy to EC2
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY}}" > ~/.ssh/id_rsa
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << EOF
-            ls
-            pwd
-            cd fe
-            pwd
+          ssh -T -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+            cd /home/ubuntu/fe
             git pull origin main
-            sudo docker stop food_ordering_fe || true
-            sudo docker rm food_ordering_fe || true
+            sudo docker system prune -f
+            sudo docker stop food_fe || true
+            sudo docker rm food_fe || true
             sudo docker build -t food_ordering_fe:latest .
-            sudo docker run -dp 5173:80 --name food_ordering_fe food_ordering_fe:latest
+            sudo docker run -d \
+              --name food_fe \
+              --restart always \
+              -p 5173:80 \
+              food_ordering_fe:latest
           EOF
