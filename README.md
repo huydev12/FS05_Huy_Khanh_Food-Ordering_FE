@@ -1,73 +1,107 @@
-# React + TypeScript + Vite
+# 🍔 Savour - Food Ordering System (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Giao diện web (Frontend) cho nền tảng đặt đồ ăn trực tuyến **Savour**, kết nối liền mạch 4 đối tượng: **Khách hàng**, **Nhà hàng**, **Tài xế** và **Quản trị viên** với trải nghiệm theo thời gian thực (Real-time).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 Tính năng nổi bật
 
-## React Compiler
+### 👤 Khách hàng (Customer)
+* **Khám phá ẩm thực:** Tìm kiếm món ăn, lọc theo danh mục, xem đánh giá và chi tiết thực đơn nhà hàng.
+* **Đặt hàng thuận tiện:** Thêm món, ghi chú đơn hàng, giỏ hàng linh hoạt và quy trình thanh toán rõ ràng.
+* **Theo dõi trực tiếp (Live Tracking):** Giám sát lộ trình đơn hàng và vị trí giao hàng theo thời gian thực trên bản đồ số.
+* **Tương tác & Tiện ích:** Chat hỗ trợ trực tuyến, tham gia cộng đồng chia sẻ món ăn, lưu địa chỉ giao hàng và danh sách yêu thích.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🏪 Đối tác Nhà hàng (Restaurant)
+* **Đăng ký mở quán:** Biểu mẫu đăng ký đối tác nhanh chóng.
+* **Quản lý kinh doanh (Restaurant Dashboard):** Quản lý thực đơn, phân loại món ăn, theo dõi và cập nhật trạng thái đơn hàng.
 
-## Expanding the ESLint configuration
+### 🛵 Đối tác Tài xế (Driver)
+* **Đăng ký tài xế:** Đăng ký hồ sơ giao nhận thuận tiện.
+* **Bảng điều khiển tài xế (Driver Dashboard):** Tiếp nhận đơn hàng mới, cập nhật trạng thái giao hàng và đồng bộ vị trí di chuyển.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🛡️ Quản trị viên (Admin)
+* **Trang quản trị (Admin Dashboard):** Giám sát tổng quan hệ thống, kiểm duyệt nhà hàng/tài xế, quản lý tài khoản và phân quyền truy cập (RBAC).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Công nghệ sử dụng (Tech Stack)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Thành phần | Công nghệ chính |
+| :--- | :--- |
+| **Nền tảng chính** | [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/) |
+| **Giao diện & Styling** | [Tailwind CSS v4](https://tailwindcss.com/), Radix UI / Shadcn UI, Lucide Icons |
+| **Quản lý trạng thái** | [Redux Toolkit](https://redux-toolkit.js.org/) & [Zustand](https://github.com/pmndrs/zustand) |
+| **Điều hướng (Routing)** | [React Router DOM v7](https://reactrouter.com/) |
+| **Bản đồ & Real-time** | [Leaflet](https://leafletjs.com/) / React-Leaflet, [Socket.IO Client](https://socket.io/) |
+| **API Client** | [Axios](https://axios-http.com/) (xử lý interceptor & tự động refresh token) |
+| **Đa ngôn ngữ (i18n)** | [i18next](https://www.i18next.com/) (Hỗ trợ Tiếng Việt & Tiếng Anh) |
+
+---
+
+## 📁 Cấu trúc thư mục chính
+
+```text
+src/
+├── app/
+│   ├── components/    # Component theo vai trò (admin, driver, restaurant, map, auth, ui)
+│   ├── features/      # Redux Slices (auth, driver, map, order, restaurant)
+│   ├── hooks/         # Custom Hooks (useAuth, useChat, useOrderTracking...)
+│   ├── pages/         # Giao diện chính (Khách hàng, Nhà hàng, Tài xế, Admin)
+│   ├── services/      # Tầng giao tiếp API Backend
+│   ├── stores/        # Zustand Stores (cart, favorite, auth)
+│   └── types/         # TypeScript Interfaces & Types
+├── components/        # Component dùng chung toàn ứng dụng (ChatBox, ...)
+├── i18n/              # Cấu hình đa ngôn ngữ (vi, en)
+└── styles/            # Cấu hình Theme & CSS toàn cục
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Hướng dẫn cài đặt & Khởi chạy
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Yêu cầu môi trường
+* **Node.js**: >= 18.x (khuyên dùng Node 20 hoặc 22)
+* **Trình quản lý gói**: `npm` hoặc `pnpm`
+
+### 1. Cài đặt Dependencies
+```bash
+npm install
+# hoặc nếu dùng pnpm:
+pnpm install
 ```
+
+### 2. Cấu hình biến môi trường
+Tạo file `.env` ở thư mục gốc (nếu cần thay đổi API Backend):
+```env
+VITE_API_URL=https://your-api-domain.com
+```
+*(Nếu không khai báo, hệ thống sẽ sử dụng API mặc định đã cấu hình trong mã nguồn).*
+
+### 3. Chạy môi trường phát triển (Dev)
+```bash
+npm run dev
+# hoặc
+pnpm dev
+```
+Mở trình duyệt và truy cập: `http://localhost:5173`
+
+### 4. Build cho Production
+```bash
+npm run build
+```
+
+---
+
+## 🐳 Triển khai với Docker
+
+Dự án đã tích hợp sẵn `Dockerfile` nhiều giai đoạn (Multi-stage build) kết hợp Nginx:
+
+```bash
+# 1. Build image
+docker build -t savour-frontend .
+
+# 2. Khởi chạy container
+docker run -d -p 80:80 --name savour-fe-app savour-frontend
+```
+Ứng dụng sẽ hoạt động tại cổng `http://localhost:80`.
